@@ -13,14 +13,14 @@ def get_endpoint():
     visitor_name = request.args.get('visitor_name')
 
     try:
-        visitor_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
-        if visitor_ip.startswith('127.0.0.1'):
-            visitor_ip = requests.get('https://api.ipify.org').text
+        client_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
+        if client_ip.startswith('127.0.0.1'):
+            client_ip = requests.get('https://api.ipify.org').text
     except:
         visitor_ip = "Unable to get IP"
 
     try:
-        location_info = requests.get(f"https://ipapi.co/{visitor_ip}/json/").json()
+        location_info = requests.get(f"https://ipapi.co/{client_ip}/json/").json()
         city = location_info.get('city', 'Unknown')
 
         weather_api_key = '2cd8bb028638cff45e4cb2c285a26a90'
@@ -29,10 +29,12 @@ def get_endpoint():
     except requests.RequestException as e:
         location_info = {"error": "Unable to fetch location data"}
 
+    greeting = f"Hello, {visitor_name}! The temperature is {temperature} degrees Celsius in {city}"
+
     response = {
-        "client_ip": visitor_ip,
+        "client_ip": client_ip,
         "location": city,
-        "greeting": f"Hello, {visitor_name}! The temperature is {temperature} degrees Celsius in {city}"
+        "greeting": greeting
     }
     
     return jsonify(response)
