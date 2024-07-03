@@ -29,9 +29,8 @@ def get_endpoint():
 
         response = {
             'client ip': visitor_ip,
-            #'location': city,
-            'greeting': f"Hello, {visitor_name}! The temperature is {temperature} degrees Celsius in {city}",
-            'location': city
+            'location': city,
+            'greeting': f"Hello, {visitor_name}! The temperature is {temperature} degrees Celsius in {city}"
         }
     except requests.RequestException as e:
         location_info = {"error": "Unable to fetch location data"}
