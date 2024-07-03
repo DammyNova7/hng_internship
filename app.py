@@ -30,9 +30,9 @@ def get_endpoint():
         location_info = {"error": "Unable to fetch location data"}
 
     response = {
-        "client_ip", visitor_ip,
-        "location", city,
-        "greeting", f"Hello, {visitor_name}! The temperature is {temperature} degrees Celsius in {city}"
+        "client_ip": visitor_ip,
+        "location": city,
+        "greeting": f"Hello, {visitor_name}! The temperature is {temperature} degrees Celsius in {city}"
     }
     
     return jsonify(response)
