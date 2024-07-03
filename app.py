@@ -2,6 +2,7 @@
 
 #importing modules
 from flask import Flask, request, jsonify
+from collections import OrderedDict
 import requests
 
 
@@ -27,11 +28,11 @@ def get_endpoint():
         temperature = round(weather_info['main']['temp']) if 'main' in weather_info else "Not available"
         greeting = f"Hello, {visitor_name}! The temperature is {temperature} degrees Celsius in {city}"
 
-        response = {
+        response = OrderedDict({
             'client ip': visitor_ip,
             'location': city,
             'greeting': greeting
-        }
+        })
     except requests.RequestException as e:
         location_info = {"error": "Unable to fetch location data"}
 
