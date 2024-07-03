@@ -24,7 +24,7 @@ def get_endpoint():
 
         weather_api_key = '2cd8bb028638cff45e4cb2c285a26a90'
         weather_info = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={weather_api_key}&units=metric").json()
-        temperature = weather_info['main']['temp'] if 'main' in weather_info else "Not available"
+        temperature = round(weather_info['main']['temp']) if 'main' in weather_info else "Not available"
         greeting = f"Hello, {visitor_name}! The temperature is {temperature} degrees Celsius in {city}"
 
         response = {
