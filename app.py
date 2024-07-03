@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 @app.route('/api/hello', methods=['GET'])
 def get_endpoint():
-    name = request.args.get('name')
+    visitor_name = request.args.get('visitor_name')
 
     try:
         visitor_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
@@ -25,7 +25,7 @@ def get_endpoint():
         weather_api_key = '2cd8bb028638cff45e4cb2c285a26a90'
         weather_info = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid={weather_api_key}&units=metric").json()
         temperature = weather_info['main']['temp'] if 'main' in weather_info else "Not available"
-        greeting = f"Hello, {name}! The temperature is {temperature} degrees Celsius in {city}"
+        greeting = f"Hello, {visitor_name}! The temperature is {temperature} degrees Celsius in {city}"
 
         response = {
             'client ip': visitor_ip,
