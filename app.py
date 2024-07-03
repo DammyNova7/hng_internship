@@ -20,7 +20,7 @@ def get_endpoint():
         visitor_ip = "Unable to get IP"
 
     try:
-        location_info = requests.get(f"https://ipinfo.io/{visitor_ip}/json").json()
+        location_info = requests.get(f"https://ipapi.co/{visitor_ip}/json/").json()
         city = location_info.get('city', 'Unknown')
 
         weather_api_key = '2cd8bb028638cff45e4cb2c285a26a90'
@@ -29,11 +29,11 @@ def get_endpoint():
     except requests.RequestException as e:
         location_info = {"error": "Unable to fetch location data"}
 
-    response = OrderedDict([
-        ("client_ip", visitor_ip),
-        ("location", city),
-        ("greeting", f"Hello, {visitor_name}! The temperature is {temperature} degrees Celsius in {city}")
-    ])
+    response = {
+        "client_ip", visitor_ip,
+        "location", city,
+        "greeting", f"Hello, {visitor_name}! The temperature is {temperature} degrees Celsius in {city}"
+    }
     
     return jsonify(response)
 
